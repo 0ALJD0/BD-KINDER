@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5a70957e-bbbc-426e-8e07-bda2409f727f">
+	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT ANO, COUNT(ACT.ID_ACTIVIDAD) FROM ACTIVIDAD ACT
+    INNER JOIN PROGRAMA PRG ON PRG.ID_PROGRAMA = ACT.ID_PROGRAMA
+    INNER JOIN CREADO CRD ON CRD.ID_ACTIVIDAD = ACT.ID_ACTIVIDAD
+    INNER JOIN ANO_LECTIVO LECT ON LECT.ID_ANO_LECTIVO = CRD.ID_ANO_LECTIVO
+    GROUP BY ANO
+    ORDER BY ANO ASC;]]>
+	</queryString>
+	<field name="ano" class="java.lang.String"/>
+	<field name="count" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="95" splitType="Stretch">
+			<staticText>
+				<reportElement x="159" y="12" width="237" height="52" uuid="b594910f-d438-49a9-81d3-7ba1c1ad6220"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="22" isBold="true" isItalic="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[KINDER  "AMAIA MOREIRIRA"]]></text>
+			</staticText>
+			<image>
+				<reportElement x="17" y="5" width="114" height="90" uuid="ee8d30a7-ecd0-4b54-9854-72c49e2052b8"/>
+				<imageExpression><![CDATA["C:\\Users\\Usuario\\Documents\\Para GDB\\reportes\\logo-kinder-cloud.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="33" y="17" width="481" height="35" uuid="ab3b0a03-7874-42c5-a1a5-7f6371576e39"/>
+				<textElement>
+					<font fontName="Times New Roman" size="22" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Reporte del número de actividades por año lectivo]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="33" y="2" width="100" height="20" uuid="56406feb-4cdb-45f8-833f-6b450f6d447d"/>
+				<text><![CDATA[AÑO LECTIVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="2" width="144" height="20" uuid="0e02f079-99c1-44ac-a7ac-c9e8bc67b027"/>
+				<text><![CDATA[NUMERO DE ACTIVIDADES]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="44" splitType="Stretch">
+			<textField>
+				<reportElement x="31" y="13" width="100" height="20" uuid="e6477f84-3aa2-4190-a2d9-d085a9247cff"/>
+				<textFieldExpression><![CDATA[$F{ano}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="13" width="100" height="20" uuid="2e17a3f3-3154-4d17-a644-1df049117d69"/>
+				<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="309" splitType="Stretch">
+			<pie3DChart>
+				<chart>
+					<reportElement x="33" y="19" width="492" height="279" uuid="b239136e-f130-4fce-9636-aeea731d72d3"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{ano}]]></keyExpression>
+					<valueExpression><![CDATA[$F{count}]]></valueExpression>
+					<labelExpression><![CDATA[$F{count}.toString()]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+		</band>
+	</summary>
+</jasperReport>
