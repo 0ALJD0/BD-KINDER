@@ -1,3 +1,7 @@
+/*
+TRIGGER 2
+- Trigger que impida que un estudiante sea matriculado varias veces en una misma actividad programada. 
+*/
 CREATE OR REPLACE FUNCTION TG_IMPIDE_MATRICULA() RETURNS TRIGGER
 AS
 $$
