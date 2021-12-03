@@ -1,0 +1,33 @@
+/*
+TRIGGER 3
+-No permitir que se ingrese un año que no sea el actual
+*/
+--creación de funcion
+CREATE OR REPLACE FUNCTION TG_ANIOACTUAL() RETURNS TRIGGER
+AS
+$$
+    DECLARE
+       
+        ANO_INST VARCHAR;
+        ANO_LECT DATE = CURRENT_DATE;
+		AN VARCHAR;
+
+    BEGIN	
+        AN=EXTRACT(YEAR FROM ANO_LECT);
+		
+        ANO_INST=NEW.ANO;
+        IF( AN != ANO_INST ) THEN
+            RAISE EXCEPTION 'EL AÑO INGREADO DEBE SE IGUAL AL ACTUAL %',AN;
+        END IF;
+        RETURN NEW;
+    END;
+    $$
+    LANGUAGE PLPGSQL;
+--creación del trigger
+CREATE TRIGGER TG_ANIOACTUAL
+BEFORE
+INSERT ON ANO_LECTIVO
+FOR EACH ROW
+EXECUTE PROCEDURE TG_ANIOACTUAL();
+
+--INSERT INTO ANO_LECTIVO (ANO) VALUES ('2015');
